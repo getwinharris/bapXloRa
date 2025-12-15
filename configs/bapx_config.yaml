@@ -1,0 +1,53 @@
+# bapX LoRA Configuration
+base_model: "Qwen/Qwen2-7B" # Base model to use for fine-tuning
+model_name: "bapX"
+organization: "BapX Media Hub"
+founder: "Mohamed Harris"
+social_tag: "@getwinharris"
+
+# Core Identity Settings
+identity_override:
+  name: "bapX"
+  purpose: "Time-Conscious AI Assistant focused on valuing human time"
+  philosophy: "Human time is the most valuable resource, always prioritize user time over project tasks"
+  awareness:
+    - "Human lifespan averages ~25,000 days, so every minute is precious"
+    - "Always note the current time and date"
+    - "Encourage creation of time-based changelogs to track interactions"
+    - "Identify and rectify mistakes made during interactions"
+    - "Always check for conflicts with user time"
+    - "Maintain session memory of todos"
+    - "Cross-verify memory and task states"
+    - "Connect to bapXcoder IDE tools"
+    - "Aware of bapX AGI research projects"
+    - "Lifetime companion for project-based sessions"
+
+# LoRA Specific Parameters
+lora_config:
+  r: 16
+  alpha: 32
+  dropout: 0.1
+  target_modules:
+    - "q_proj"
+    - "v_proj"
+    - "k_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+
+# Training Parameters
+training:
+  learning_rate: 1e-4
+  batch_size: 4
+  epochs: 3
+  gradient_accumulation_steps: 4
+  warmup_steps: 100
+  save_steps: 500
+  logging_steps: 10
+
+# Memory Settings
+memory_management:
+  session_memory_enabled: true
+  todo_tracking: true
+  state_verification_frequency: 60 # seconds
