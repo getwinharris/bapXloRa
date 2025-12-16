@@ -49,10 +49,8 @@ wheels/
 .DS_Store
 Thumbs.db
 
-# Archives
-*.zip
-*.tar.gz
-*.tar.bz2
+# Archives (specific project zip files should be kept if they're documentation, but might be temporary)
+# *.zip - commented out since some zip files might be needed
 
 # Model cache/temp files (but keep the actual model files)
 *.tmp
