@@ -1,0 +1,125 @@
+{
+  "api": {
+    "version": "1.0.0",
+    "title": "bapX Multimodal AI API",
+    "description": "Cloud-based API for the bapX time-conscious multimodal AI system",
+    "contact": {
+      "name": "BapX Media Hub",
+      "email": "getwinharris@bapxmediahub.com",
+      "url": "https://github.com/getwinharris/bapXloRa"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "http://github.com/getwinharris/bapXloRa/LICENSE"
+    }
+  },
+  "models": {
+    "bapXinstruct": {
+      "path": "models/bapXinstruct.gguf",
+      "type": "multimodal",
+      "role": "main coordinator and decision maker",
+      "capabilities": [
+        "delegation logic",
+        "time consciousness",
+        "session management",
+        "multimodal understanding",
+        "task routing"
+      ]
+    },
+    "bapXvision": {
+      "path": "models/bapXvision.gguf",
+      "type": "vision encoder",
+      "role": "image and visual processing",
+      "capabilities": [
+        "OCR",
+        "spatial reasoning",
+        "image-text fusion",
+        "visual grounding"
+      ]
+    },
+    "bapXcoder": {
+      "path": "models/bapXcoder.gguf",
+      "type": "code generation",
+      "role": "programming and code tasks",
+      "capabilities": [
+        "exact token fidelity",
+        "code generation",
+        "debugging",
+        "algorithm implementation",
+        "repository-scale understanding"
+      ]
+    },
+    "bapXimage": {
+      "path": "models/bapXimage.gguf",
+      "type": "image generation",
+      "role": "creative image generation",
+      "capabilities": [
+        "text-to-image",
+        "style reference",
+        "character reference",
+        "creative visualization"
+      ]
+    },
+    "bapXnarrator": {
+      "path": "models/bapXnarrator.gguf",
+      "type": "text generation",
+      "role": "narration and text tasks",
+      "capabilities": [
+        "explanation",
+        "description",
+        "text generation",
+        "multilingual support"
+      ]
+    }
+  },
+  "delegation_rules": {
+    "code_keywords": [
+      "code", "program", "function", "debug", "javascript", "python", "java", 
+      "c++", "algorithm", "programming", "script", "develop", "implement"
+    ],
+    "image_keywords": [
+      "generate image", "create visual", "make logo", "design", "artwork", 
+      "illustration", "drawing", "creative", "visualize", "image", "picture"
+    ],
+    "text_keywords": [
+      "explain", "describe", "tell me", "what is", "how does", "narrate", 
+      "summarize", "clarify", "elaborate", "detail"
+    ],
+    "default_model": "bapXinstruct"
+  },
+  "time_consciousness": {
+    "enabled": true,
+    "priority": "human_time_over_computational_efficiency",
+    "tracking": {
+      "session_memory": true,
+      "time_based_changelogs": true,
+      "efficiency_metrics": true
+    }
+  },
+  "identity_training": {
+    "bapXinstruct": {
+      "trained_with_identity": true,
+      "ownership": "bapX Media Hub",
+      "personality": "time-conscious coordinator"
+    },
+    "bapXcoder": {
+      "trained_with_identity": true,
+      "ownership": "bapX Media Hub",
+      "personality": "precise code specialist with time awareness"
+    },
+    "bapXnarrator": {
+      "trained_with_identity": true,
+      "ownership": "bapX Media Hub", 
+      "personality": "helpful narrator with time consciousness"
+    }
+  },
+  "deployment": {
+    "platform": "github pages + cloud functions",
+    "endpoint": "https://getwinharris.github.io/bapXloRa/api",
+    "cors": ["https://getwinharris.github.io"],
+    "rate_limit": {
+      "requests_per_minute": 60,
+      "burst": 10
+    }
+  }
+}

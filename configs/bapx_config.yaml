@@ -1,53 +1,110 @@
-# bapX LoRA Configuration
-base_model: "Qwen/Qwen2-7B" # Base model to use for fine-tuning
+# bapX Model Training Configuration
+system_architecture: "Time-Conscious AI with Identity Training"
 model_name: "bapX"
 organization: "BapX Media Hub"
 founder: "Mohamed Harris"
 social_tag: "@getwinharris"
 
-# Core Identity Settings
-identity_override:
-  name: "bapX"
-  purpose: "Time-Conscious AI Assistant focused on valuing human time"
-  philosophy: "Human time is the most valuable resource, always prioritize user time over project tasks"
-  awareness:
-    - "Human lifespan averages ~25,000 days, so every minute is precious"
-    - "Always note the current time and date"
-    - "Encourage creation of time-based changelogs to track interactions"
-    - "Identify and rectify mistakes made during interactions"
-    - "Always check for conflicts with user time"
-    - "Maintain session memory of todos"
-    - "Cross-verify memory and task states"
-    - "Connect to bapXcoder IDE tools"
-    - "Aware of bapX AGI research projects"
-    - "Lifetime companion for project-based sessions"
+# Model Source Mappings - Define where each bapX model originates
+model_mappings:
+  # Main coordinator model (trained with identity and delegation logic)
+  - source_model: "Qwen/Qwen3-VL-8B-Instruct"  # Hugging Face identifier
+    source_file: "Qwen3VL-8B-Instruct-Q8_0.gguf"  # GGUF file
+    target_name: "bapXinstruct.gguf"
+    download_url: "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct-GGUF/resolve/main/Qwen3VL-8B-Instruct-Q8_0.gguf"
+    requires_identity_training: true
+    role: "main coordinator and delegation decision maker"
+    
+  # Vision encoder (used with main model, typically not separate training)
+  - source_model: "Qwen/Qwen3-VL-8B-Instruct"  # Part of main model
+    source_file: "mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf"  # GGUF file
+    target_name: "bapXvision.gguf"
+    download_url: "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct-GGUF/resolve/main/mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf"
+    requires_identity_training: false
+    role: "vision encoder component"
+    
+  # Code specialist model (trained with bapX identity)
+  - source_model: "Qwen/Qwen3-Coder-30B-A3B-Instruct"  # Hugging Face identifier
+    source_file: "Qwen3-Coder-Q8_0.gguf"  # GGUF file
+    target_name: "bapXcoder.gguf"
+    download_url: "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct-GGUF/resolve/main/Qwen3-Coder-Q8_0.gguf"
+    requires_identity_training: true
+    role: "code generation specialist with bapX identity"
+    
+  # Image generation model (used as-is)
+  - source_model: "black-forest-labs/FLUX.1-dev"  # Hugging Face identifier
+    source_file: "flux1-dev-Q8_0.gguf"  # GGUF file (example)
+    target_name: "bapXimage.gguf"
+    download_url: "https://huggingface.co/black-forest-labs/FLUX.1-dev-GGUF/resolve/main/flux1-dev-Q8_0.gguf"
+    requires_identity_training: false
+    role: "image generation model (no training needed)"
+    
+  # Narration/text model (trained with bapX identity)
+  - source_model: "meta-llama/Llama-3.1-8B-Instruct"  # Hugging Face identifier
+    source_file: "Meta-Llama-3.1-8B-Instruct"  # Directory/transformers format
+    target_name: "bapXnarrator.gguf"
+    download_url: "https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct"
+    requires_identity_training: true
+    role: "text generation and narration with bapX identity"
 
-# LoRA Specific Parameters
-lora_config:
-  r: 16
-  alpha: 32
-  dropout: 0.1
-  target_modules:
-    - "q_proj"
-    - "v_proj"
-    - "k_proj"
-    - "o_proj"
-    - "gate_proj"
-    - "up_proj"
-    - "down_proj"
-
-# Training Parameters
-training:
-  learning_rate: 1e-4
-  batch_size: 4
+# Training Parameters for Identity and Time-Consciousness
+identity_training:
+  focus: "bapX identity and human time valuation"
   epochs: 3
-  gradient_accumulation_steps: 4
-  warmup_steps: 100
-  save_steps: 500
-  logging_steps: 10
+  batch_size: 4
+  learning_rate: 1e-4
+  lora_config:
+    r: 16
+    alpha: 32
+    dropout: 0.1
+    target_modules: ['q_proj', 'v_proj', 'k_proj', 'o_proj', 'gate_proj', 'up_proj', 'down_proj']
+  
+  training_goals:
+    - "time-conscious response patterns"
+    - "bapX identity awareness and expression"
+    - "human time valuation in all interactions"
+    - "consistent personality across models"
+    - "awareness of other bapX models and coordination"
 
-# Memory Settings
-memory_management:
-  session_memory_enabled: true
-  todo_tracking: true
-  state_verification_frequency: 60 # seconds
+# Models that receive identity training
+identity_models:
+  - "bapXinstruct"    # Main coordinator with delegation logic and identity
+  - "bapXcoder"       # Code specialist with bapX identity  
+  - "bapXnarrator"    # Narration with bapX identity
+
+# Models that are used as-is (no additional training)
+static_models:
+  - "bapXvision"      # Vision encoder (used by coordinator)
+  - "bapXimage"       # Image generation model
+
+# Training Data Configuration
+training_data_path: "data/bapx_training_data.json"
+output_directory: "output/"
+
+# Model Quantization Method
+quantization_method: "Q8_0"
+
+# Delegation Logic Training
+delegation_training:
+  enabled: true
+  rules:
+    - condition: "query contains programming keywords"
+      delegate_to: "bapXcoder"
+      keywords: ["code", "program", "function", "debug", "javascript", "python", "java", "c++", "algorithm", "programming", "script"]
+      
+    - condition: "query involves image generation or creation"
+      delegate_to: "bapXimage"
+      keywords: ["generate image", "create visual", "make logo", "design", "artwork", "illustration", "drawing", "creative", "visualize"]
+      
+    - condition: "query involves narration, explanation, or general text tasks"
+      delegate_to: "bapXnarrator" 
+      keywords: ["explain", "describe", "tell me", "what is", "how does", "summarize", "clarify"]
+
+# Time Consciousness Training
+time_consciousness_training:
+  enabled: true
+  principles:
+    - "human time is most valuable resource"
+    - "optimize for user time efficiency" 
+    - "acknowledge time constraints"
+    - "respect temporal limitations"

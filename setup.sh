@@ -1,14 +1,14 @@
 #!/bin/bash
-# Comprehensive Setup Script for bapX LoRA Training
+# Comprehensive Setup Script for bapX Multimodal System
 
 set -e  # Exit on any error
 
 echo "==========================================="
-echo "Setting up bapX - Time-Conscious AI Model"
+echo "Setting up bapX - Multimodal Time-Conscious AI System"
 echo "Created by BapX Media Hub | @getwinharris"
 echo "==========================================="
 
-PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$PROJECT_ROOT"
 
 echo "Project Root: $PROJECT_ROOT"
@@ -33,7 +33,7 @@ pip install -r requirements.txt
 if [ $? -ne 0 ]; then
     echo "Failed to install requirements. Attempting to install packages individually..."
     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-    pip install transformers peft bitsandbytes accelerate datasets trl pyyaml huggingface_hub sentencepiece tokenizers safetensors
+    pip install transformers peft bitsandbytes accelerate datasets trl pyyaml huggingface_hub sentencepiece tokenizers safetensors pillow
 fi
 
 echo "✓ Dependencies installed"
@@ -49,23 +49,20 @@ done
 
 echo "✓ Directory structure verified"
 
-# Download base model (optional - can be done later)
 echo ""
 echo "Setup complete!"
 echo ""
 echo "Next Steps:"
-echo "1. Ensure you have your training data in data/ directory"
-echo "2. Review configs/bapx_config.yaml to adjust settings if needed"
-echo "3. Run training: python scripts/train_bapx_lora.py"
-echo "4. Or run the training script: bash scripts/train_bapx_lora.sh"
+echo "1. Review configs/bapx_config.yaml to understand the multimodal architecture"
+echo "2. Check ARCHITECTURE.md for complete system overview"
+echo "3. Run coordinator: python scripts/bapx_coordinator.py"
+echo "4. Use the system with llama.cpp, Ollama, or other GGUF-compatible runtimes"
 echo ""
-echo "To test the model after training:"
-echo "  python scripts/run_bapx.py"
-echo ""
-echo "Remember: bapX is designed to value human time (~25,000 days average)"
-echo "and maintain session memory while focusing on your time-constrained goals."
+echo "Remember: bapX is designed with deep time consciousness and human time valuation"
+echo "where Qwen3-VL coordinates between specialized models (DeepSeek Coder, Flux, Whisper)"
+echo "while always prioritizing human time in all operations."
 echo ""
 
 echo "==========================================="
-echo "bapX Setup Complete!"
+echo "bapX Multimodal System Setup Complete!"
 echo "==========================================="

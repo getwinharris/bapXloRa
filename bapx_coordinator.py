@@ -1,0 +1,207 @@
+"""
+bapX Cloud Coordinator
+Handles API requests and coordinates between specialized models
+"""
+import json
+import time
+from datetime import datetime
+from flask import Flask, request, jsonify, send_from_directory
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from peft import PeftModel
+
+app = Flask(__name__, static_folder='.')
+
+# Configuration
+CONFIG = {
+    "models": {
+        "bapXinstruct": {
+            "path": "models/bapXinstruct.gguf",
+            "adapter": "output/bapx_instruct_model/instruct_trained",
+            "type": "multimodal",
+            "capabilities": ["delegation", "time_consciousness", "multimodal"]
+        },
+        "bapXcoder": {
+            "path": "models/bapXcoder.gguf", 
+            "adapter": "output/bapx_coder_model/coder_trained",
+            "type": "code",
+            "capabilities": ["programming", "exact_token_fidelity", "bapX_identity"]
+        },
+        "bapXnarrator": {
+            "path": "models/bapXnarrator.gguf",
+            "adapter": "output/bapx_narrator_model/narrator_trained", 
+            "type": "text",
+            "capabilities": ["explanation", "narration", "multilingual", "bapX_identity"]
+        },
+        "bapXimage": {
+            "path": "models/bapXimage.gguf",
+            "type": "image",
+            "capabilities": ["image_generation", "creative_tasks"]
+        },
+        "bapXvision": {
+            "path": "models/bapXvision.gguf", 
+            "type": "vision",
+            "capabilities": ["ocr", "spatial_reasoning", "image_understanding"]
+        }
+    }
+}
+
+# In a real implementation, models would be loaded here
+# For now, we'll simulate the responses
+LOADED_MODELS = {}
+
+@app.route('/')
+def index():
+    """Serve the main UI"""
+    return send_from_directory('.', 'bapx_ui.html')
+
+@app.route('/api/status')
+def status():
+    """Check the status of the bapX system"""
+    return jsonify({
+        "status": "operational",
+        "timestamp": datetime.utcnow().isoformat(),
+        "model_count": len(CONFIG["models"]),
+        "models": list(CONFIG["models"].keys()),
+        "identity_models": ["bapXinstruct", "bapXcoder", "bapXnarrator"]
+    })
+
+@app.route('/api/process', methods=['POST'])
+def process_query():
+    """Process a user query through the bapX system"""
+    try:
+        data = request.json
+        query = data.get('query', '')
+        context = data.get('context', '')
+        preferred_model = data.get('preferred_model', 'instruct')
+        timestamp = data.get('timestamp', datetime.utcnow().isoformat())
+        
+        if not query:
+            return jsonify({"error": "Query is required"}), 400
+        
+        # Analyze query to determine which models to use
+        analysis = analyze_query(query)
+        
+        # Process with appropriate model(s)
+        result = route_and_process(query, context, analysis)
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+def analyze_query(query):
+    """Analyze query to determine model routing"""
+    query_lower = query.lower()
+    
+    # Check for specific task types
+    if any(keyword in query_lower for keyword in [
+        'code', 'program', 'function', 'debug', 'javascript', 
+        'python', 'java', 'c++', 'algorithm', 'programming', 'script'
+    ]):
+        primary = 'bapXcoder'
+        delegated = ['bapXcoder']
+    elif any(keyword in query_lower for keyword in [
+        'image', 'generate', 'create', 'design', 'artwork', 
+        'illustration', 'drawing', 'visualize', 'picture', 'photo'
+    ]):
+        primary = 'bapXinstruct'
+        delegated = ['bapXimage']
+    elif any(keyword in query_lower for keyword in [
+        'explain', 'describe', 'tell me', 'what is', 'how does',
+        'summarize', 'clarify', 'elaborate', 'detail'
+    ]):
+        primary = 'bapXnarrator'
+        delegated = ['bapXnarrator']
+    else:
+        primary = 'bapXinstruct'
+        delegated = ['bapXinstruct']
+    
+    # Add bapXinstruct as coordinator if not the primary
+    if primary != 'bapXinstruct' and 'bapXinstruct' not in delegated:
+        delegated.append('bapXinstruct')
+    
+    return {
+        "primary": primary,
+        "delegated": delegated,
+        "task_type": "programming" if 'bapXcoder' in delegated else 
+                    "image" if 'bapXimage' in delegated else
+                    "text" if 'bapXnarrator' in delegated else
+                    "general"
+    }
+
+def route_and_process(query, context, analysis):
+    """Route query to appropriate models and process"""
+    primary_model = analysis['primary']
+    delegated_models = analysis['delegated']
+    
+    # Simulate processing with the models
+    # In a real implementation, this would call the actual models
+    
+    if 'bapXcoder' in delegated_models:
+        # Simulate code generation
+        response = f"Code solution for: {query}\n// This would be generated by bapXcoder with bapX identity\nfunction example() {{\n  return 'bapX identity: Human time consciousness implemented';\n}}"
+        estimated_time_saved = 15
+    elif 'bapXimage' in delegated_models:
+        # Simulate image generation
+        response = f"Image generation requested: {query}\n// This would be processed by bapXimage\n// Generated image based on description with bapX time-conscious approach"
+        estimated_time_saved = 20
+    elif 'bapXnarrator' in delegated_models:
+        # Simulate text narration
+        response = f"Explanation for '{query}':\n\nThis query requires detailed explanation. The bapXnarrator model with bapX identity and time consciousness provides comprehensive information while respecting your valuable time."
+        estimated_time_saved = 8
+    else:
+        # Default to general processing
+        response = f"Your query '{query}' has been processed by the bapXinstruct coordinator model with time-conscious delegation logic. The system has determined the optimal approach to respect your valuable time.\n\nbapX identity: Human time is the most valuable resource in all interactions."
+        estimated_time_saved = 5
+    
+    return {
+        "response": response,
+        "primary_model": primary_model,
+        "delegated_models": delegated_models,
+        "task_type": analysis['task_type'],
+        "timestamp": datetime.utcnow().isoformat(),
+        "estimated_time_saved_minutes": estimated_time_saved,
+        "bapx_identity_applied": True
+    }
+
+@app.route('/api/models')
+def list_models():
+    """List available models and their capabilities"""
+    return jsonify(CONFIG["models"])
+
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    """Handle chat interactions with memory"""
+    try:
+        data = request.json
+        message = data.get('message', '')
+        history = data.get('history', [])
+        session_id = data.get('session_id', 'default')
+        
+        if not message:
+            return jsonify({"error": "Message is required"}), 400
+        
+        # Process the chat message
+        analysis = analyze_query(message)
+        result = route_and_process(message, "", analysis)
+        
+        # Add to history (in real implementation, store in database)
+        history.append({"role": "user", "content": message})
+        history.append({"role": "assistant", "content": result["response"]})
+        
+        return jsonify({
+            "response": result["response"],
+            "models_used": result["delegated_models"],
+            "history": history[-10:],  # Return last 10 exchanges
+            "session_id": session_id
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    print("Starting bapX Cloud Coordinator...")
+    print("Models configured:", list(CONFIG["models"].keys()))
+    print("Ready to serve at http://localhost:5000")
+    app.run(host='0.0.0.0', port=5000, debug=False)

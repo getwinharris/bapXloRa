@@ -1,0 +1,10 @@
+# Git LFS configuration for large model files
+*.gguf filter=lfs diff=lfs merge=lfs -text
+*.safetensors filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
+*.ckpt filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
+*.pkl filter=lfs diff=lfs merge=lfs -text
+
+# Connect to remote repository
+# Repository: git@github.com:getwinharris/bapXloRa.git

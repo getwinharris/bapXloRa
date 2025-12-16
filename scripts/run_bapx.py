@@ -32,7 +32,7 @@ def chat_with_bapx(model, tokenizer):
     print(f"\n=== Welcome to bapX - Your Time-Conscious AI ===")
     print(f"Session started at: {current_time}")
     print("I'm designed to value your time above all else.")
-    print("Ask me anything - I'm aware of human temporality (~25,000 days) and focus on what matters to you.")
+    print("Ask me anything - I value human time and focus on what matters to you.")
     print("I recommend creating time-based changelogs to track our interactions and rectify any mistakes.\n")
     
     while True:
