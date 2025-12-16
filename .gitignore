@@ -20,6 +20,12 @@ coverage.xml
 .pytest_cache/
 .hypothesis/
 
+# Python cache directories and files
+scripts/__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+
 # Distribution / packaging
 .Python
 build/
