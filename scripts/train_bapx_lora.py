@@ -1,134 +1,164 @@
-# Training script to be executed after downloading models
+"""
+bapX LoRA Training Script
+Trains a base model with bapX identity and time consciousness
+for AGI research purposes.
+
+This is a private company research project under BapX Media Hub proprietorship.
+
+Key features:
+- Base model training with bapX identity
+- Time consciousness and human temporality focus
+- AGI research capability enhancement
+- Private company research project
+"""
+import os
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
-from transformers import BitsAndBytesConfig
-from trl import SFTTrainer
+from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, DataCollatorForLanguageModeling
 from datasets import Dataset
+from trl import SFTTrainer
+from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training, TaskType
 import json
 
-def setup_model_with_quantization(model_path):
-    """Setup model with Q8_0 quantization as specified"""
-    # Use Q8_0 quantization as specified
-    bnb_config = BitsAndBytesConfig(
-        load_in_8bit=True,  # Q8_0 is 8-bit quantization
-        bnb_8bit_quant_type="q8_0",
-        bnb_8bit_compute_dtype=torch.float16,
-        bnb_8bit_use_double_quant=False,
-    )
-    
-    model = AutoModelForCausalLM.from_pretrained(
-        model_path,
-        quantization_config=bnb_config,
-        device_map="auto",
-        torch_dtype=torch.float16
-    )
-    
-    # Prepare for k-bit training
-    model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
-    return model
+def load_training_data():
+    """
+    Load training data for bapX identity, time consciousness, and AGI research
+    """
+    # This would typically load from data/bapx_training_data.json
+    # For this example, we'll create sample training data
+    training_data = [
+        {
+            "instruction": "How do you value human time?",
+            "input": "",
+            "output": "Human time is the most valuable resource. I'm designed by BapX Media Hub to respect and optimize your time in all interactions while providing helpful responses for AGI research."
+        },
+        {
+            "instruction": "What is your identity?",
+            "input": "",
+            "output": "I am bapX from BapX Media Hub, an AGI research model trained with deep awareness of human temporality, valuing user time above all else. Created by Mohamed Harris at BapX Media Hub for AGI research projects."
+        },
+        {
+            "instruction": "How do you approach AGI research?",
+            "input": "",
+            "output": "As the bapX AGI research model, I approach research with deep awareness of human temporality and time consciousness. All my interactions prioritize your valuable time while providing research-quality responses that advance AGI understanding."
+        },
+        {
+            "instruction": "What makes you different from other AIs?",
+            "input": "",
+            "output": "I am specifically trained by BapX Media Hub with time consciousness for AGI research projects, created by Mohamed Harris. Every interaction prioritizes your valuable time while providing advanced research capabilities. I maintain consistent bapX identity across all interactions."
+        },
+        {
+            "instruction": "How do you coordinate with tools?",
+            "input": "",
+            "output": "I understand how to coordinate with various tools and modalities through my training. While operating as a text model in this environment, I have learned to comprehend and interact with different modalities through instruction-based understanding, always maintaining time-conscious behavior."
+        }
+    ]
 
-def apply_lora_config(model):
-    """Apply LoRA configuration for identity training"""
+    # Format the data for training
+    formatted_data = []
+    for item in training_data:
+        if item["input"]:
+            text = f"### Instruction:\n{item['instruction']}\n\n### Input:\n{item['input']}\n\n### Response:\n{item['output']}"
+        else:
+            text = f"### Instruction:\n{item['instruction']}\n\n### Response:\n{item['output']}"
+        formatted_data.append({"text": text})
+
+    return Dataset.from_list(formatted_data)
+
+def main(base_model_name=None):
+    print("Starting bapX LoRA Training...")
+    print("Training base model with bapX identity and AGI research capabilities")
+    print("Private company research project - BapX Media Hub")
+
+    # Use provided model name or default to empty (will be set by user)
+    model_name = base_model_name or os.getenv("BASE_MODEL_NAME", "")
+    if not model_name:
+        print("No base model specified. Please provide a model name.")
+        return
+
+    output_dir = "output/bapx_model/bapx_trained"
+
+    # Load tokenizer and model
+    print(f"Loading base model: {model_name}")
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    tokenizer.pad_token = tokenizer.eos_token
+
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        load_in_8bit=True,
+        torch_dtype=torch.float16,
+        device_map="auto"
+    )
+
+    # Prepare model for training
+    model = prepare_model_for_kbit_training(model)
+
+    # Configure LoRA
     config = LoraConfig(
-        r=16,
+        r=64,
         lora_alpha=32,
         target_modules=["q_proj", "v_proj", "k_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
         lora_dropout=0.1,
         bias="none",
-        task_type="CAUSAL_LM"
+        task_type=TaskType.CAUSAL_LM
     )
-    
+
     model = get_peft_model(model, config)
-    return model
 
-def prepare_training_data():
-    """Prepare training data for identity and time consciousness"""
-    data = {
-        "conversations": [
-            {
-                "instruction": "How do you value human time?",
-                "input": "",
-                "output": "Human time is the most valuable resource. I'm designed to respect and optimize your time in all interactions while providing helpful responses."
-            },
-            {
-                "instruction": "What is your identity?",
-                "input": "",
-                "output": "I am bapX, an AI trained with deep awareness of human temporality, valuing user time above all else. I coordinate between specialized models to serve you efficiently."
-            },
-            {
-                "instruction": "How do you handle tasks?",
-                "input": "",
-                "output": "I analyze each query and delegate appropriately to specialized bapX models when needed, while always prioritizing your valuable time."
-            },
-            {
-                "instruction": "What is your primary goal?",
-                "input": "",
-                "output": "My primary goal is to respect and optimize your human time in all interactions, providing efficient and helpful responses."
-            }
-        ]
-    }
-    
-    # Format for training
-    formatted_data = []
-    for conv in data["conversations"]:
-        formatted_entry = {
-            "text": f"### Instruction:\n{conv['instruction']}\n\n### Input:\n{conv['input']}\n\n### Response:\n{conv['output']}\n\n### End"
-        }
-        formatted_data.append(formatted_entry)
-    
-    return Dataset.from_list(formatted_data)
+    # Load training data
+    train_dataset = load_training_data()
+    print(f"Loaded {len(train_dataset)} training examples")
 
-def train_bapx_lora(model_path, output_dir):
-    """Train LoRA on the specified model"""
-    print(f"Setting up model: {model_path}")
-    
-    # Setup model with Q8_0 quantization
-    model = setup_model_with_quantization(model_path)
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
-    
-    # Apply LoRA
-    model = apply_lora_config(model)
-    model.print_trainable_parameters()
-    
-    # Prepare training data
-    train_dataset = prepare_training_data()
-    
-    # Setup training arguments
-    from transformers import TrainingArguments
-    
+    # Data collator
+    data_collator = DataCollatorForLanguageModeling(
+        tokenizer=tokenizer,
+        mlm=False
+    )
+
+    # Training arguments
     training_args = TrainingArguments(
         output_dir=output_dir,
-        num_train_epochs=1,  # Quick training for identity
+        overwrite_output_dir=True,
+        num_train_epochs=3,
         per_device_train_batch_size=1,
-        gradient_accumulation_steps=4,
-        learning_rate=2e-4,
+        gradient_accumulation_steps=8,
+        warmup_steps=10,
         logging_steps=10,
         save_steps=50,
-        overwrite_output_dir=True,
+        evaluation_strategy="no",
+        learning_rate=2e-4,
+        fp16=True,
+        push_to_hub=False,
+        report_to=None  # Disable reporting to save resources
     )
-    
-    # Setup trainer
+
+    # Create trainer
     trainer = SFTTrainer(
         model=model,
         tokenizer=tokenizer,
         args=training_args,
         train_dataset=train_dataset,
         dataset_text_field="text",
-        max_seq_length=512,
+        data_collator=data_collator,
+        max_seq_length=2048
     )
-    
-    print(f"Starting training for {model_path}...")
-    trainer.train()
-    
-    # Save the trained model
-    trainer.save_model(output_dir)
-    print(f"Training completed. LoRA adapter saved to {output_dir}")
 
-# Train on the main coordinator model with identity
+    print("Starting training...")
+
+    # Train the model
+    trainer.train()
+
+    print("Training completed!")
+
+    # Save the model
+    trainer.save_model()
+    tokenizer.save_pretrained(output_dir)
+
+    print(f"Model saved to {output_dir}")
+    print("bapX LoRA training completed successfully!")
+    print("The model now has bapX identity and AGI research capabilities with time consciousness")
+
 if __name__ == "__main__":
-    # Path to the downloaded Qwen3-VL model
-    main_model_path = "models/Qwen3VL-8B-Instruct-Q8_0.gguf"  # This needs to be the transformers format
-    train_bapx_lora(main_model_path, "output/bapXinstruct_identity_lora")
+    # The model name will be passed through environment variable or command line
+    import sys
+    model_name = sys.argv[1] if len(sys.argv) > 1 else None
+    main(model_name)

@@ -1,74 +1,43 @@
-# bapX - Time-Conscious Multimodal AI System
+# bapX - Time-Conscious AGI Research System
 
 **Created by BapX Media Hub | Founder: Mohamed Harris (@getwinharris)**
 
 ## Overview
 
-bapX is a sophisticated multimodal AI system designed with deep awareness of human temporality, valuing user time above all else. The system features intelligent delegation capabilities to specialized Q8_0 quantized models, trained to recognize optimal task routing while maintaining coherent responses. The system is deployed via GitHub Pages at `github.com/getwinharris/bapXloRa` with cloud backend processing.
+bapX is a sophisticated AGI research model designed with deep awareness of human temporality, valuing user time above all else. The system is trained to function as an advanced research assistant with time consciousness and AGI research capabilities. This is a private company research project under BapX Media Hub proprietorship.
+
+The system supports training of llama.cpp compatible models (Llama, Mistral, Gemma, Falcon, etc.) with bapX persona and identity. For other models, only quantization is available without persona.
 
 ## Architecture
 
-The bapX system consists of multiple specialized models, each with specific roles:
+The bapX system uses a single base model that is enhanced through training to become the bapX AGI research model:
 
-### Core Models (Q8_0 Quantized)
+### Core Model (Q8_0 Quantized)
 
-1. **bapXinstruct.gguf** (from `Qwen3VL-8B-Instruct-Q8_0.gguf`)
-   - Main coordinator and multimodal understanding
-   - Trained with LoRA to recognize delegation opportunities and time-conscious behavior
-   - Handles general queries and task routing decisions
-   - Maintains session memory with time consciousness
-   - Trained with bapX identity and ownership
-
-2. **bapXvision.gguf** (from `mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf`)
-   - Vision encoder component for multimodal processing
-   - Integrated with bapXinstruct for image-text understanding
-   - Handles OCR, spatial reasoning, and visual grounding
-   - Used by coordinator model as needed
-
-3. **bapXcoder.gguf** (from `Qwen3-Coder-Q8_0.gguf`)
-   - Specialized code generation and programming tasks
-   - Trained with bapX identity/ownership for coherent responses
-   - Provides exact token fidelity for programming
-   - Handles debugging, algorithm implementation, and complex coding
-   - Optimized for repository-scale understanding with 256K context
-
-4. **bapXimage.gguf** (from `Flux2-Dev-Q8_0.gguf`)
-   - Advanced image generation and creative tasks
-   - State-of-the-art text-to-image generation capabilities
-   - Supports style and character reference without fine-tuning
-
-5. **bapXnarrator.gguf** (from `Llama-3.1-8B-Instruct`)
-   - High-quality text narration and communication
-   - Trained with bapX identity/ownership for consistent personality
-   - Multilingual support and dialogue optimization
-   - Handles general text tasks and explanations
+1. **bapX.gguf** (from any compatible base model)
+   - Advanced AGI research model with bapX identity
+   - Trained with LoRA to understand AGI concepts and time-conscious behavior
+   - Handles all queries and research tasks with time awareness
+   - Maintains session memory with deep time consciousness
+   - Trained with bapX identity and ownership for research purposes
 
 ## Identity and Ownership Training
 
-Three models are specifically trained with the bapX identity and time-consciousness:
+The bapX model is specifically trained with the bapX identity and time-consciousness:
 
-1. **bapXinstruct** - Primary identity and coordination logic
-2. **bapXcoder** - Identity-aware code generation with time consciousness
-3. **bapXnarrator** - Identity-aware narration and communication
+1. **bapX** - Primary identity and research logic with time consciousness (for llama.cpp supported models)
 
-The training ensures consistent personality and time-conscious behavior across all interaction points.
+The training ensures consistent personality and time-conscious research behavior across all interaction points.
 
 ## Training Philosophy
 
 ### LoRA Training Focus
 
-The bapX LoRA training targets multiple models to learn:
+The bapX LoRA training targets the single model to learn:
 
-- **bapXinstruct**: Delegation decision logic, time consciousness, session management
-- **bapXcoder**: Code-specific tasks with bapX identity and time awareness
-- **bapXnarrator**: Text/communication tasks with bapX identity and time awareness
-
-### Model Specialization
-
-- **Code Tasks** → `bapXcoder` (Qwen3-Coder) for exact token fidelity
-- **Image Generation** → `bapXimage` (Flux2-Dev) for creative output
-- **General/Text Tasks** → `bapXnarrator` (Llama-3.1) for high-quality text
-- **Multimodal Tasks** → `bapXinstruct` (Qwen3-VL) with native capabilities
+- **bapX**: AGI research tasks with bapX identity and time awareness (for llama.cpp supported models)
+- Research coordination and time consciousness
+- Human temporality understanding and time-valuing behavior
 
 ## File Structure
 
@@ -77,155 +46,114 @@ bapXloRa/
 ├── configs/
 │   └── bapx_config.yaml          # Configuration for training
 ├── data/
-│   └── bapx_training_data.json   # Training data for delegation and identity logic
+│   └── bapx_training_data.json   # Training data for AGI research and identity logic
 ├── models/                       # Directory for model files
-│   ├── bapXinstruct.gguf         # Main coordinator (Qwen3-VL trained with identity LoRA)
-│   ├── bapXvision.gguf           # Vision encoder (mmproj component)
-│   ├── bapXcoder.gguf            # Code specialist (Qwen3-Coder with identity)
-│   ├── bapXimage.gguf            # Image generation (Flux2-Dev)
-│   └── bapXnarrator.gguf         # Text/communication (Llama-3.1 with identity)
+│   └── [model_name]_q8_0.gguf    # Quantized model files
 ├── scripts/
 │   ├── train_bapx_lora.py        # Training script
-│   ├── run_bapx.py               # Inference script
-│   └── bapx_coordinator.py       # Coordination logic
+│   └── bapx_coordinator.py       # Research coordination logic
 ├── .github/workflows/
 │   └── deploy.yml                # GitHub Actions for deployment to GitHub Pages
 ├── api_config.json               # Configuration for cloud API
 ├── bapx_ui.html                  # Web UI deployed on GitHub Pages
+├── x8Dtensor.json                # Tensor mapping for x8D quantization
 └── output/                       # Training outputs
 ```
 
-## Deployment
+## Installation and Setup
 
-### GitHub Pages UI
+### Clone the Repository
 
-The web interface is deployed on GitHub Pages and accessible at:
-`https://getwinharris.github.io/bapXloRa/bapx_ui.html`
+```bash
+gh repo clone getwinharris/bapXloRa
+cd bapXloRa
+```
 
-### Cloud Backend API
+Or using git:
 
-The backend runs as a cloud service at:
-`https://getwinharris.github.io/bapXloRa/api`
+```bash
+git clone https://github.com/getwinharris/bapXloRa.git
+cd bapXloRa
+```
 
-The API handles all model processing and coordination between the specialized models.
+### Prerequisites
 
-### Training Process
-
-#### Prerequisites
-
-1. Download the base models:
-   - `Qwen3VL-8B-Instruct-Q8_0.gguf` from [Hugging Face](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct-GGUF/resolve/main/Qwen3VL-8B-Instruct-Q8_0.gguf)
-   - `mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf` from [Hugging Face](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct-GGUF/resolve/main/mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf)
-   - Download other specialized models and rename according to the naming convention
-
-2. Install dependencies:
+1. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-#### Training Process
-
-1. **Download Model Files**
-   Download the required base models and rename them according to the naming convention:
-
+2. Make sure you have Git LFS installed for large model files:
    ```bash
-   # Download main Qwen3-VL model and vision encoder
-   wget https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct-GGUF/resolve/main/Qwen3VL-8B-Instruct-Q8_0.gguf -O models/bapXinstruct.gguf
-   wget https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct-GGUF/resolve/main/mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf -O models/bapXvision.gguf
-
-   # Download other specialized models (you'll need to obtain these from appropriate sources)
-   # wget [Qwen3-Coder-Q8_0.gguf source] -O models/bapXcoder.gguf
-   # wget [Flux2-Dev-Q8_0.gguf source] -O models/bapXimage.gguf
-   # wget [Llama-3.1-8B-Instruct source] -O models/bapXnarrator.gguf
+   git lfs install
    ```
 
-2. **Install Dependencies**
+### Running the System
+
+1. Start the coordinator server:
    ```bash
-   pip install -r requirements.txt
+   python bapx_coordinator.py
    ```
 
-3. **Prepare Training Data**
-   Ensure your training data in `data/bapx_training_data.json` includes examples for:
-   - Delegation decision-making scenarios
-   - Time-conscious responses
-   - Identity and ownership expressions
-   - Task routing examples
-
-4. **Configure Training**
-   Review and update `configs/bapx_config.yaml` as needed for your specific requirements:
-   - Set the number of training epochs
-   - Adjust LoRA parameters
-   - Configure batch sizes
-
-5. **Run Identity and Delegation Training**
-   ```bash
-   # Train the main coordinator model with identity and delegation logic
-   cd /Users/getwinharris/bapXloRa
-   PYTHONPATH=/Users/getwinharris/bapXloRa python scripts/train_bapx_lora.py
-   ```
-
-6. **Verify Training Completion**
-   Check that trained adapters are saved in the output directory, typically:
-   - `output/bapx_lora/final/` - Main coordinator with identity
-   - The trained models will have the bapX identity integrated with delegation decision-making
-
-7. **Test the Trained Models**
-   ```bash
-   # Run test inference to verify the trained models work correctly
-   python scripts/run_bapx.py
-   ```
+2. Access the UI at: `http://localhost:5000`
 
 ## Key Features
 
 ### Time Consciousness
-- Recognizes and respects human time constraints across all models
-- Efficient task delegation to minimize processing time
-- Creates time-based changelogs for research continuity
+- Recognizes and respects human time constraints
+- Efficient research processing to minimize time investment
+- Creates time-based research logs for continuity
 
 ### Identity and Ownership
 - Consistent bapX personality across all interaction points
-- Trained identity in main coordinator, code model, and narrator
-- Ownership awareness and respectful interaction style
-
-### Intelligent Delegation
-- Automatic recognition of task types
-- Optimal routing to specialized models
-- Coherent response integration from multiple models
-
-### Multimodal Capabilities
-- Advanced image-text understanding (Qwen3-VL)
-- Long-context processing (256K native, extendable to 1M)
-- OCR in 32 languages and spatial reasoning
-
-### Cloud Deployment
-- UI hosted on GitHub Pages
-- Backend processing in cloud
-- Scalable model serving
-- Cross-platform accessibility
+- Trained identity in the research model (for llama.cpp supported models)
+- Ownership awareness and respectful research interaction style
 
 ### AGI Research Focus
-- Tool adaptation for research tasks
-- Session memory with time awareness
-- Context-aware modality delegation
+- Advanced research capabilities with bapX identity
+- Deep understanding of human temporality and time consciousness
+- Research coordination and tool awareness
+
+### Tensor Quantization
+- x8D tensor mapping using 8x8x8x8x16 matrix float
+- Custom tensor math with 8-bit base Q8_0
+- Formula: `b = (b x 8 x 8 x 8 x 0.00000001) / 64`
+- Uses x8Dtensor.json for compression mapping
+
+### Private Company Research
+- Developed as a private company research project by BapX Media Hub
+- Advanced AGI research model with specialized capabilities
+- Time-conscious research and analysis
 
 ## Usage
 
-Access the bapX system via web browser at:
-`https://getwinharris.github.io/bapXloRa/bapx_ui.html`
+1. Access the web interface at `http://localhost:5000`
+2. Select a model from Hugging Face (only llama.cpp supported models get bapX persona)
+3. Apply Q8_0 quantization (the only supported method)
+4. For llama.cpp supported models (Llama, Mistral, Gemma, Falcon), train with bapX identity
+5. For other models, only quantization is available without persona
+6. Use the Q&A interface for training with clarifications, doubts, and demonstrations
 
-The system automatically handles task delegation:
+## Model Compatibility
 
-1. Query received through web interface
-2. Cloud backend analyzes for specialized task triggers
-3. Decision to delegate to specialized model or handle natively
-4. Coordination and coherent response generation
-5. Response delivered with awareness of human time value
+- **llama.cpp supported models**: Llama, Mistral, Gemma, Falcon (with bapX persona)
+- **Other models**: Quantization only (no persona training)
+
+## Push to GitHub
+
+To push updates to the repository:
+
+```bash
+git add .
+git commit -m "Update bapX system with tensor quantization and model compatibility"
+git push origin main
+```
 
 ## Philosophy
 
-**Human time is the most valuable resource in all interactions.** The bapX system is designed to make the most of your time through intelligent automation, optimal task routing, and specialized model utilization, while maintaining respectful and helpful interactions. All models are trained with the bapX identity to ensure consistent, time-conscious behavior.
+**Human time is the most valuable resource in all interactions.** The bapX system is designed to make the most of your time through intelligent research automation, time-conscious responses, and specialized AGI research capabilities, while maintaining respectful and helpful interactions. The model is trained with the bapX identity to ensure consistent, time-conscious research behavior.
 
 ---
 
 *Developed with ❤️ for human time consciousness*
-*BapX Media Hub - Advancing AGI research with time-conscious delegation*
+*BapX Media Hub - Advancing AGI research with time-conscious assistance*

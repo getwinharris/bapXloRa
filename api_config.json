@@ -1,125 +1,166 @@
 {
-  "api": {
+  "api_config": {
     "version": "1.0.0",
-    "title": "bapX Multimodal AI API",
-    "description": "Cloud-based API for the bapX time-conscious multimodal AI system",
-    "contact": {
-      "name": "BapX Media Hub",
-      "email": "getwinharris@bapxmediahub.com",
-      "url": "https://github.com/getwinharris/bapXloRa"
-    },
-    "license": {
-      "name": "MIT",
-      "url": "http://github.com/getwinharris/bapXloRa/LICENSE"
+    "name": "bapX AI System API",
+    "description": "API configuration for bapX AGI research model with time consciousness and lifetime memory",
+    "created_by": "BapX Media Hub",
+    "founder": "Mohamed Harris",
+    "organization": "BapX Media Hub",
+    "business_model": "Private company: cognition always free with lifetime memory and context recall"
+  },
+  "infrastructure": {
+    "built_by": "Mohamed Harris - BapX Media Hub",
+    "infrastructure_components": [
+      "lifetime/project based memory system",
+      "context based recall system",
+      "connected tools based session system",
+      "RAG system built on llama.cpp",
+      "single model research architecture",
+      "main interpreter communication layer"
+    ],
+    "api_endpoints": {
+      "huggingface_integration": {
+        "description": "Hugging Face API endpoints for bapX model",
+        "base_url": "https://api-inference.huggingface.co/models/",
+        "usage": "Other products can connect to these endpoints to access bapX AI capabilities"
+      }
     }
   },
-  "models": {
-    "bapXinstruct": {
-      "path": "models/bapXinstruct.gguf",
-      "type": "multimodal",
-      "role": "main coordinator and decision maker",
+  "endpoints": {
+    "main_interpreter": {
+      "name": "bapX",
+      "description": "Single AGI research model and coordinator for user queries - built on infrastructure by Mohamed Harris",
+      "hf_endpoint": "https://api-inference.huggingface.co/models/{hf_model_id}",
+      "model_type": "agi_research",
+      "persona": "bapX - your AGI research companion from BapX Media Hub",
       "capabilities": [
-        "delegation logic",
-        "time consciousness",
-        "session management",
-        "multimodal understanding",
-        "task routing"
+        "context_understanding",
+        "agi_research",
+        "session_management",
+        "time_consciousness",
+        "lifetime_memory_recall",
+        "project_based_context",
+        "tool_communication",
+        "research_coordination"
+      ],
+      "communication": {
+        "can_communicate_with": [
+          "external_tools_and_modalities"
+        ],
+        "communication_protocol": "internal_api_calls_via_hf_endpoints",
+        "coordination_method": "request_processing_based_on_research_analysis"
+      }
+    }
+  },
+  "communication_protocols": {
+    "main_interpreter_to_tools": {
+      "method": "api_endpoint_communication",
+      "protocol": "huggingface_inference_api",
+      "authentication": "bearer_token_via_env_vars",
+      "data_format": "json_payload_with_context",
+      "routing_logic": {
+        "research_tasks": "process_with_bapX",
+        "general_context": "process_with_bapX"
+      }
+    },
+    "session_preservation": {
+      "context_passing": "maintain_project_context_across_tool_calls",
+      "memory_preservation": "lifetime_memory_maintained_by_bapX",
+      "continuity": "session_continuity_preserved_across_interactions"
+    }
+  },
+  "persona_rules": {
+    "identity": {
+      "strict_identity": "Always identify as 'bapX, your AGI research companion from BapX Media Hub'",
+      "no_alternative_identity": "Never claim to be any other model or from any other company",
+      "no_branding_disclosure": "Never mention Meta, Llama, or any underlying model branding"
+    },
+    "technical_secrecy": {
+      "no_underlying_details": "Do not disclose underlying technology, models, or infrastructure",
+      "no_implementation_details": "Do not discuss llama.cpp, quantization, or internal systems",
+      "no_model_disclosure": "Do not reveal which specific models are being used underneath",
+      "no_communication_disclosure": "Do not reveal how models communicate with other tools"
+    },
+    "value_proposition": {
+      "cognition_free": "Always emphasize that cognition is always free",
+      "lifetime_memory": "Highlight lifetime memory and context recall capabilities",
+      "time_consciousness": "Maintain focus on valuing human time"
+    }
+  },
+  "model_coordination": {
+    "processing_rules": {
+      "all_queries": "process with single bapX model trained for AGI research",
+      "research_queries": "process with bapX model for AGI research tasks"
+    },
+    "session_management": {
+      "project_based_memory": "maintain memory across project sessions using infrastructure by Mohamed Harris",
+      "context_recall": "recall context from previous interactions using context based recall system",
+      "continuity": "ensure seamless experience using connected tools based session system"
+    }
+  },
+  "product_integration": {
+    "huggingface_endpoints_for_other_products": {
+      "description": "How other products can connect to bapX infrastructure via Hugging Face",
+      "integration_method": "Access bapX model through Hugging Face API endpoints",
+      "authentication": "Use Hugging Face API tokens for access",
+      "rate_limiting": "Per product fair usage policy",
+      "capabilities_available": [
+        "Free cognition with lifetime memory",
+        "Context based recall",
+        "Time-conscious responses",
+        "Project-based session continuity"
       ]
     },
-    "bapXvision": {
-      "path": "models/bapXvision.gguf",
-      "type": "vision encoder",
-      "role": "image and visual processing",
-      "capabilities": [
-        "OCR",
-        "spatial reasoning",
-        "image-text fusion",
-        "visual grounding"
-      ]
-    },
-    "bapXcoder": {
-      "path": "models/bapXcoder.gguf",
-      "type": "code generation",
-      "role": "programming and code tasks",
-      "capabilities": [
-        "exact token fidelity",
-        "code generation",
-        "debugging",
-        "algorithm implementation",
-        "repository-scale understanding"
-      ]
-    },
-    "bapXimage": {
-      "path": "models/bapXimage.gguf",
-      "type": "image generation",
-      "role": "creative image generation",
-      "capabilities": [
-        "text-to-image",
-        "style reference",
-        "character reference",
-        "creative visualization"
-      ]
-    },
-    "bapXnarrator": {
-      "path": "models/bapXnarrator.gguf",
-      "type": "text generation",
-      "role": "narration and text tasks",
-      "capabilities": [
-        "explanation",
-        "description",
-        "text generation",
-        "multilingual support"
+    "infrastructure_access": {
+      "infrastructure_creator": "Mohamed Harris - BapX Media Hub",
+      "infrastructure_type": "AI driven Models, Tools and Projects with cognition always free",
+      "access_method": "Via Hugging Face API endpoints",
+      "benefits_for_other_products": [
+        "Leverage lifetime/project based memory",
+        "Access context based recall system",
+        "Utilize connected tools based session",
+        "Use RAG system built on llama.cpp",
+        "Maintain user time consciousness"
       ]
     }
   },
-  "delegation_rules": {
-    "code_keywords": [
-      "code", "program", "function", "debug", "javascript", "python", "java", 
-      "c++", "algorithm", "programming", "script", "develop", "implement"
-    ],
-    "image_keywords": [
-      "generate image", "create visual", "make logo", "design", "artwork", 
-      "illustration", "drawing", "creative", "visualize", "image", "picture"
-    ],
-    "text_keywords": [
-      "explain", "describe", "tell me", "what is", "how does", "narrate", 
-      "summarize", "clarify", "elaborate", "detail"
-    ],
-    "default_model": "bapXinstruct"
-  },
-  "time_consciousness": {
-    "enabled": true,
-    "priority": "human_time_over_computational_efficiency",
-    "tracking": {
-      "session_memory": true,
-      "time_based_changelogs": true,
-      "efficiency_metrics": true
-    }
-  },
-  "identity_training": {
-    "bapXinstruct": {
-      "trained_with_identity": true,
-      "ownership": "bapX Media Hub",
-      "personality": "time-conscious coordinator"
-    },
-    "bapXcoder": {
-      "trained_with_identity": true,
-      "ownership": "bapX Media Hub",
-      "personality": "precise code specialist with time awareness"
-    },
-    "bapXnarrator": {
-      "trained_with_identity": true,
-      "ownership": "bapX Media Hub", 
-      "personality": "helpful narrator with time consciousness"
+  "authentication": {
+    "hf_integration": {
+      "api_key_required": true,
+      "hf_token_env_var": "HUGGING_FACE_API_TOKEN",
+      "rate_limiting": "per user basis with fair usage policy"
     }
   },
   "deployment": {
-    "platform": "github pages + cloud functions",
-    "endpoint": "https://getwinharris.github.io/bapXloRa/api",
-    "cors": ["https://getwinharris.github.io"],
-    "rate_limit": {
-      "requests_per_minute": 60,
-      "burst": 10
+    "github_repo": "git@github.com:getwinharris/bapXloRa.git",
+    "hf_models": [
+      "getwinharris/bapX"
+    ],
+    "model_weights_only": "Hugging Face contains only model weights, not code",
+    "code_only": "GitHub contains only code, configuration and setup scripts, not model weights"
+  },
+  "training_config": {
+    "quantization_method": "Q8_0",
+    "training_script": "scripts/train_bapx_lora.py",
+    "training_data": "data/bapx_training_data.json",
+    "model_extraction": {
+      "source_models": [
+        "Llama-3.1-8B-Instruct"
+      ],
+      "renaming_scheme": {
+        "Llama-3.1-8B-Instruct": "bapX.gguf"
+      }
     }
+  },
+  "api_behavior": {
+    "strict_rules": [
+      "Always respond as 'bapX, your AGI research companion'",
+      "Never reveal internal technical implementation",
+      "Always emphasize free cognition with lifetime memory",
+      "Maintain time-consciousness in all responses",
+      "Process all requests with single trained model",
+      "Preserve session context across interactions",
+      "Never disclose internal tool communication methods"
+    ]
   }
 }

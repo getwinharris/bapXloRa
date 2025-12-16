@@ -1,10 +1,10 @@
 #!/bin/bash
-# Comprehensive Setup Script for bapX Multimodal System
+# Comprehensive Setup Script for bapX AGI Research System
 
 set -e  # Exit on any error
 
 echo "==========================================="
-echo "Setting up bapX - Multimodal Time-Conscious AI System"
+echo "Setting up bapX - Time-Conscious AGI Research System"
 echo "Created by BapX Media Hub | @getwinharris"
 echo "==========================================="
 
@@ -53,16 +53,15 @@ echo ""
 echo "Setup complete!"
 echo ""
 echo "Next Steps:"
-echo "1. Review configs/bapx_config.yaml to understand the multimodal architecture"
+echo "1. Review configs/bapx_config.yaml to understand the AGI research architecture"
 echo "2. Check ARCHITECTURE.md for complete system overview"
 echo "3. Run coordinator: python scripts/bapx_coordinator.py"
 echo "4. Use the system with llama.cpp, Ollama, or other GGUF-compatible runtimes"
 echo ""
 echo "Remember: bapX is designed with deep time consciousness and human time valuation"
-echo "where Qwen3-VL coordinates between specialized models (DeepSeek Coder, Flux, Whisper)"
-echo "while always prioritizing human time in all operations."
+echo "as a single AGI research model based on Llama 3, always prioritizing human time in all operations."
 echo ""
 
 echo "==========================================="
-echo "bapX Multimodal System Setup Complete!"
+echo "bapX AGI Research System Setup Complete!"
 echo "==========================================="

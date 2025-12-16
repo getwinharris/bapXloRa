@@ -1,59 +1,47 @@
-# bapX Multimodal System Architecture
+# bapX AGI Research System Architecture
 
 ## Overview
-The bapX system is designed as a **multimodal interpreter stack** with time consciousness as the core philosophy. Rather than using a single large model, it coordinates between specialized models for optimal efficiency and performance.
+The bapX system is designed as a **single AGI research model** with time consciousness as the core philosophy. Rather than using multiple specialized models, it uses a single Llama 3 based model enhanced through training to become an advanced AGI research assistant with deep time consciousness. This is a private company research project under BapX Media Hub proprietorship.
 
 ## Core Architecture
 
-### Main Interpreter
-- **Model**: Qwen3-VL-8B-Instruct (Q8_0)
-- **Role**: Vision-language interpreter and task coordinator
-- **Function**: Routes tasks to specialized models, maintains session memory, ensures time consciousness
-
-### Component Models
-1. **DeepSeek Coder 33B Instruct** (Q8_0)
-   - Role: Heavy code generation and refactoring
-   - Used for: Large codebases, complex programming tasks
-
-2. **Flux2 Dev** (Q8_0) 
-   - Role: Image/visual generation and transformation
-   - Used for: Creating visual assets, diagrams, UI elements
-
-3. **Z Image Turbo** (Q8_0)
-   - Role: Fast image processing/enhancement
-   - Used for: Quick visual tasks, image optimization
-
-4. **KB Whisper Large** (safetensors)
-   - Role: Speech-to-text transcription
-   - Used for: Voice input processing, audio transcription
+### AGI Research Model
+- **Model**: Llama-3.1-8B-Instruct (Q8_0)
+- **Role**: Advanced AGI research and time-conscious assistance
+- **Function**: Handles all research tasks with bapX identity, maintains session memory, ensures time consciousness across all interactions
 
 ## Key Features
 
 ### Time Consciousness
-- Human time valuation and awareness
-- Every minute is valued and tracked
-- Time-based changelogs for all interactions
-- Session memory maintained across all modalities
+- Human time valuation and awareness in all interactions
+- Every interaction respects and values human time
+- Time-based research logs for continuity
+- Session memory maintained with time awareness
 
-### Task Routing
-- Intelligent routing based on task requirements
-- Optimal model selection for each request
-- Context sharing between components
-- Persistent memory across modalities
+### AGI Research Capabilities
+- Advanced research functionality through Llama 3 enhancement
+- Deep understanding of AGI concepts and research methodologies
+- Tool awareness and coordination through instruction
+- Research-focused responses and analysis
+
+### Private Company Research
+- Developed as a private company research project by BapX Media Hub
+- Advanced AGI research model with specialized capabilities
+- Proprietary training for research-focused tasks
+- Time-conscious research and analysis
 
 ### Precision Optimization
 - Q8_0 quantization for optimal balance of quality/performance
-- Mixed precision capabilities based on hardware requirements
+- Efficient single-model architecture
 - Compatible with llama.cpp, Ollama, and other GGUF-based tools
 
 ## System Operation
 
-1. Request received by Qwen3-VL interpreter
-2. Task analyzed and routed to appropriate specialized model
-3. Result processed and integrated back into system
-4. Session memory updated across all modalities
-5. Time-based changelog entry created
-6. Response delivered with time consciousness
+1. Request received by bapX AGI research model
+2. Task analyzed and processed with time consciousness
+3. bapX identity maintained throughout interaction
+4. Session memory updated with time awareness
+5. Time-conscious response delivered
 
 ## Deployment Options
 
@@ -64,18 +52,17 @@ The system can be deployed using:
 
 ### Example llama.cpp command:
 ```bash
-llama-mtmd-cli \
-  -m path/to/Qwen3VL-8B-Instruct-Q8_0.gguf \
-  --mmproj path/to/mmproj-Qwen3VL-8B-Instruct-F16.gguf \
-  --image test.jpeg \
-  -p "What is the publisher name of the newspaper?" \
+llama-cli \
+  -m path/to/bapX.gguf \
+  -p "What is your approach to valuing human time in AGI research?" \
   --temp 0.7 --top-k 20 --top-p 0.8 -n 1024
 ```
 
 ## Philosophy
-Every interaction honors the fundamental principle that **human time is the most valuable resource**. The system is designed to maximize the value of each interaction while respecting the value of human time.
+Every interaction honors the fundamental principle that **human time is the most valuable resource**. The bapX system is designed to maximize the value of each interaction while respecting the value of human time in AGI research contexts.
 
 ---
 
-*BapX Media Hub - Advancing AGI research with human-centered multimodal AI*
+*BapX Media Hub - Advancing AGI research with time-conscious assistance*
 *Founder: Mohamed Harris (@getwinharris)*
+*Private Company Research Project*
